@@ -9,6 +9,10 @@ export default {
     base: '#1D1D1D',
     info: '#0051C2',
     muted: '#666666',
+    correct: '#DAF4DE',
+    incorrect: '#FAEBED',
+    error: '#CF364D',
+    success: '#47C75D',
   },
   fontSize: {
     xs: 12,

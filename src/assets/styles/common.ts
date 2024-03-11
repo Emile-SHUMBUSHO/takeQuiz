@@ -81,6 +81,6 @@ export const mainTitle: TextStyle = {
 export const regularText: TextStyle = {
   color: '#000000',
   fontSize: 16,
-  lineHeight: 36.31,
+  lineHeight: 19.31,
   fontFamily: 'Inter-Regular',
 };
