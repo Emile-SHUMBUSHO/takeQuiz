@@ -14,6 +14,7 @@ import QuestionSeven from '../components/questionSeven';
 import QuestionEight from '../components/questionEight';
 import QuestionNine from '../components/questionNine';
 import QuestionTen from '../components/questionTen';
+import Result from '../components/result';
 
 const Questions = () => {
   const dispatch = useDispatch();
@@ -72,9 +73,9 @@ const Questions = () => {
           <QuestionNine onNext={() => onNext(QuetionsScreens.QUESTION_TEN)} />
         );
       case QuetionsScreens.QUESTION_TEN:
-        return (
-          <QuestionTen onNext={() => onNext(QuetionsScreens.QUESTION_ONE)} />
-        );
+        return <QuestionTen onNext={() => onNext(QuetionsScreens.RESULT)} />;
+      case QuetionsScreens.RESULT:
+        return <Result onNext={() => onNext(QuetionsScreens.QUESTION_ONE)} />;
       default:
         return (
           <QuestionOne onNext={() => onNext(QuetionsScreens.QUESTION_ONE)} />

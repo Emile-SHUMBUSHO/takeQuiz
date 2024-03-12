@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {TouchableOpacity, Text} from 'react-native';
 import {SvgXml} from 'react-native-svg';
 import {answerCard, regularText} from '../assets/styles';
@@ -15,29 +15,17 @@ interface props {
 }
 
 const Answer: React.FC<props> = ({answer}) => {
+  const [isCorrect, setIsCorrect] = useState(false);
   return (
-    <TouchableOpacity
-      style={[
-        answerCard,
-        {
-          backgroundColor: answer.isCorrect
-            ? '#DAF4DE'
-            : !answer.isCorrect
-            ? '#FAEBED'
-            : '#F5F3F9',
-          borderColor: answer.isCorrect
-            ? '#DAF4DE'
-            : !answer.isCorrect
-            ? '#FAEBED'
-            : '#F5F3F9',
-        },
-      ]}>
+    <TouchableOpacity style={answerCard}>
       <Text style={regularText}>{answer.answer}</Text>
-      <SvgXml
-        xml={answer.isCorrect ? thumbsUp : thumbsdown}
-        width={20}
-        height={20}
-      />
+      {isCorrect && (
+        <SvgXml
+          xml={isCorrect ? thumbsUp : thumbsdown}
+          width={20}
+          height={20}
+        />
+      )}
     </TouchableOpacity>
   );
 };

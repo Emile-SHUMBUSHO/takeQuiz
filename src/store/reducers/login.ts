@@ -1,14 +1,13 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {apis} from '../apis';
 import {storeData} from '../../constants/config';
-import {LoginState } from '../types';
+import {LoginState} from '../types';
 
 const loginSlice = createSlice({
   name: 'login',
   initialState: {
     loading: false,
-    success: false,
-    error: false,
+    statusCode: 0,
     message: '',
     token: '',
   } as LoginState,
@@ -20,10 +19,9 @@ const loginSlice = createSlice({
     builder.addCase(
       apis.login.fulfilled,
       (state, action: PayloadAction<any>) => {
-        storeData({key: 'token', value: action?.payload?.data?.token});
+        storeData({key: 'token', value: action?.payload?.token});
         state.loading = false;
-        state.success = true;
-        state.error = action?.payload?.error;
+        state.statusCode = action?.payload?.statusCode;
         state.message = action?.payload?.message;
       },
     );
@@ -31,21 +29,16 @@ const loginSlice = createSlice({
       apis.login.rejected,
       (state, action: PayloadAction<any>) => {
         state.loading = false;
-        state.error = action?.payload.error;
         state.message = action?.payload?.error;
+        state.statusCode = action?.payload?.statusCode;
       },
     );
-    
-    builder.addCase(apis.authInit.fulfilled, (state, action:PayloadAction<any>) => {
-      state.token = action?.payload;
-    })
-
-    builder.addCase(apis.resetAll, state => {
-      (state.error = false),
-        (state.loading = false),
-        (state.message = ''),
-        (state.success = false);
-    });
+    builder.addCase(
+      apis.authInit.fulfilled,
+      (state, action: PayloadAction<any>) => {
+        state.token = action?.payload;
+      },
+    );
   },
 });
 

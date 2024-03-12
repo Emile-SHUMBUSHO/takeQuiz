@@ -19,12 +19,12 @@ import loginValidation from '../utils/validation/login';
 
 const Login: React.FC<any> = ({navigation}) => {
   const dispatch = useDispatch();
-  const {loading, error, message} = useSelector(
+  const {loading, statusCode, message} = useSelector(
     (state: RootState) => state.login,
   );
 
   React.useEffect(() => {
-    if (error) {
+    if (statusCode === 401) {
       Toast.show({
         type: 'error',
         text1: message,
@@ -34,7 +34,7 @@ const Login: React.FC<any> = ({navigation}) => {
         Toast.hide();
       }, 3000);
     }
-  }, [error, message]);
+  }, [statusCode, message]);
 
   return (
     <View style={authMainContainer}>
@@ -45,8 +45,8 @@ const Login: React.FC<any> = ({navigation}) => {
         onSubmit={values => {
           dispatch(
             apis.login({
-              phoneNumber: values.email,
-              pin: values.password,
+              email: values.email,
+              password: values.password,
             }) as unknown as UnknownAction,
           );
         }}>

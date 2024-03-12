@@ -3,7 +3,7 @@ import {AxiosError} from 'axios';
 import {
   LoginData,
   LoginResponse,
-  ProfileResponse,
+  QuizResponse,
   SignupData,
   SignupResponse,
 } from './types';
@@ -31,31 +31,13 @@ class Api {
     'login',
     async (data: LoginData, {rejectWithValue}) => {
       try {
-        const response = await axios.post(`/users/login`, {...data});
+        const response = await axios.post(`/auth/login`, {...data});
         return response.data as LoginResponse;
       } catch (error: AxiosError | any) {
-        return rejectWithValue({error: error?.response?.data?.message});
+        return rejectWithValue({error: error?.message});
       }
     },
   );
-
-  profile = createAsyncThunk('profile', async (_, {rejectWithValue}) => {
-    try {
-      const {token} = await getHeaders();
-      const response = await axios.post(
-        `/users/profile`,
-        {},
-        {
-          headers: {
-            'x-auth': token,
-          },
-        },
-      );
-      return response.data as ProfileResponse;
-    } catch (error: AxiosError | any) {
-      return rejectWithValue({error: error?.response?.data?.message});
-    }
-  });
 
   authInit = createAsyncThunk('init', async (_, {rejectWithValue}) => {
     try {
@@ -85,6 +67,15 @@ class Api {
       return response;
     } catch (error: any) {
       return rejectWithValue({error: error});
+    }
+  });
+
+  quiz = createAsyncThunk('quiz', async (_, {rejectWithValue}) => {
+    try {
+      const response = await axios.get(`/quiz`, {});
+      return response.data as QuizResponse;
+    } catch (error: AxiosError | any) {
+      return rejectWithValue({error: error?.message});
     }
   });
 }

@@ -21,35 +21,34 @@ interface SignupState {
 }
 
 interface LoginData {
-  phoneNumber: string;
-  pin: string;
+  email: string;
+  password: string;
 }
 
 interface LoginResponse {
-  success: boolean;
+  statusCode: number;
   message: string;
-  error: string;
+  token: string;
 }
 
 interface LoginState {
   loading: boolean;
-  success: boolean;
+  statusCode: number;
   message: string;
-  error: boolean;
   token: string;
 }
 
-interface ProfileState {
-  loading: boolean;
+interface QuizResponse {
+  statusCode: number;
   message: string;
-  error: boolean;
-  ProfileData: any;
+  payload: any;
 }
 
-interface ProfileResponse {
-  error: boolean;
+interface QuizState {
+  loading: boolean;
+  statusCode: number;
   message: string;
-  data: any;
+  payload: any;
 }
 
 interface TokenState {
@@ -69,6 +68,7 @@ export enum QuetionsScreens {
   QUESTION_EIGHT = 'QUESTION_EIGHT',
   QUESTION_NINE = 'QUESTION_NINE',
   QUESTION_TEN = 'QUESTION_TEN',
+  RESULT = 'RESULT',
 }
 
 interface UiState {

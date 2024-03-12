@@ -20,12 +20,11 @@ const Drawer = createDrawerNavigator();
 function Routes(): JSX.Element {
   const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
-  const {token, success} = useSelector((state: RootState) => state.login);
+  const {token, statusCode} = useSelector((state: RootState) => state.login);
 
   React.useEffect(() => {
     dispatch(apis.authInit() as unknown as UnknownAction);
-    dispatch(apis.profile() as unknown as UnknownAction);
-  }, [success, dispatch]);
+  }, [statusCode, dispatch]);
 
   return (
     <Host>
@@ -38,7 +37,7 @@ function Routes(): JSX.Element {
           flex: 1,
         }}>
         <NavigationContainer>
-          {true ? (
+          {token ? (
             <Drawer.Navigator
               screenOptions={{
                 headerShown: false,

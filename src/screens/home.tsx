@@ -1,15 +1,14 @@
-import React, {useRef, useEffect, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, FlatList, Text, Image} from 'react-native';
 import {container, mainTheme, quizeTitle} from '../assets/styles';
 import {useDispatch, useSelector} from 'react-redux';
-import {apis} from '../store/apis';
-import {RootState} from '../store/types';
-import {UnknownAction} from '@reduxjs/toolkit';
-import {Loader} from '../components/loader';
 import DatePickerModal from '../components/datePicker';
 import EmptyContent from '../components/emptyContent';
 import HomeHeader from '../components/homeHeader';
 import QuizeCard from '../components/quizeCard';
+import {RootState} from '../store/types';
+import {apis} from '../store/apis';
+import {UnknownAction} from '@reduxjs/toolkit';
 
 const quizes = [
   {
@@ -45,16 +44,25 @@ const quizes = [
 ];
 
 const Home: React.FC<any> = ({navigation}) => {
-  const dispatch = useDispatch();
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [date, setDate] = useState<Date | null | string>('');
-  const {ProfileData} = useSelector((state: RootState) => state.profile);
+
+  const dispatch = useDispatch();
+
+  const {loading, message, statusCode, payload} = useSelector(
+    (state: RootState) => state.quiz,
+  );
+
+  console.log(payload);
+
+  useEffect(() => {
+    dispatch(apis.quiz() as unknown as UnknownAction);
+  }, [dispatch]);
 
   return (
     <View style={[container, {padding: 0}]}>
       <View style={mainTheme}>
         <HomeHeader
-          userName={ProfileData?.firstName}
           onDrawer={() => navigation.openDrawer()}
           onNotification={() => navigation.navigate('Notification')}
         />
@@ -67,7 +75,7 @@ const Home: React.FC<any> = ({navigation}) => {
       <Text style={quizeTitle}>Quizes</Text>
       <FlatList
         style={{marginHorizontal: 20}}
-        data={quizes}
+        data={payload}
         onEndReachedThreshold={0.1}
         removeClippedSubviews={true}
         initialNumToRender={6}
