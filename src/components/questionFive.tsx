@@ -11,19 +11,28 @@ interface Props {
 const answers = [
   {
     id: 1,
-    answer: 'The contents are displayed by non-JS-Based browsers',
+    answer: 'Both of datatype and the result of the expression are compared.',
     isCorrect: true,
   },
-  {id: 2, answer: 'Clears all the cookies ans cache', isCorrect: false},
-  {id: 3, answer: 'Both A and B.', isCorrect: false},
-  {id: 4, answer: 'None of the above.', isCorrect: false},
+  {
+    id: 2,
+    answer: 'Only the datatype of the expression is compared.',
+    isCorrect: false,
+  },
+  {
+    id: 3,
+    answer: 'Only the value of the expression is compared.',
+    isCorrect: false,
+  },
+  {id: 4, answer: 'None of the above', isCorrect: false},
 ];
 
-const QuestionTwo: React.FC<Props> = ({onNext}) => {
+const QuestionFive: React.FC<Props> = ({onNext}) => {
   return (
     <View>
       <Text style={[mainTitle, {alignSelf: 'center', textAlign: 'center'}]}>
-        What is the use of the {`<noscript>`} tag in Javascript?
+        When the switch statement matches the expression with the given labels,
+        how is the comparison done?
       </Text>
       {answers.map((answer, index) => (
         <Answer answer={answer} key={index} />
@@ -33,4 +42,4 @@ const QuestionTwo: React.FC<Props> = ({onNext}) => {
   );
 };
 
-export default QuestionTwo;
+export default QuestionFive;

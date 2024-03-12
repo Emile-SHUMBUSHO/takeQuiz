@@ -9,21 +9,17 @@ interface Props {
 }
 
 const answers = [
-  {
-    id: 1,
-    answer: 'The contents are displayed by non-JS-Based browsers',
-    isCorrect: true,
-  },
-  {id: 2, answer: 'Clears all the cookies ans cache', isCorrect: false},
-  {id: 3, answer: 'Both A and B.', isCorrect: false},
-  {id: 4, answer: 'None of the above.', isCorrect: false},
+  {id: 1, answer: 'in', isCorrect: true},
+  {id: 2, answer: 'is in', isCorrect: false},
+  {id: 3, answer: 'exists', isCorrect: false},
+  {id: 4, answer: 'lies', isCorrect: false},
 ];
 
-const QuestionTwo: React.FC<Props> = ({onNext}) => {
+const QuestionFour: React.FC<Props> = ({onNext}) => {
   return (
     <View>
       <Text style={[mainTitle, {alignSelf: 'center', textAlign: 'center'}]}>
-        What is the use of the {`<noscript>`} tag in Javascript?
+        What keyword is used to check whether a given property is valid or not?
       </Text>
       {answers.map((answer, index) => (
         <Answer answer={answer} key={index} />
@@ -33,4 +29,4 @@ const QuestionTwo: React.FC<Props> = ({onNext}) => {
   );
 };
 
-export default QuestionTwo;
+export default QuestionFour;
