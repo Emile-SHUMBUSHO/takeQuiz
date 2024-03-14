@@ -107,12 +107,12 @@ import React, { useState, useCallback, useEffect, ReactNode } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ActivityIndicator, View } from 'react-native';
 import { RootState, QuetionsScreens } from '../store/types.d';
-import uiAction from '../store/uiaction';
 import { container } from '../assets/styles';
-import QuestionOne from '../components/questionOne';
-import Result from '../components/result';
 import { apis } from '../store/apis';
 import { UnknownAction } from '@reduxjs/toolkit';
+import uiAction from '../store/uiaction';
+import Question from '../components/question';
+import Result from '../components/result';
 
 interface Props {
   route: any;
@@ -150,7 +150,7 @@ const Questions: React.FC<Props> = ({ route }) => {
       } else {
         return (
           <View style={[container, { justifyContent: 'center' }]}>
-            <QuestionOne
+            <Question
               question={payload[currentQuestionIndex]}
               onNext={onNext}
             />

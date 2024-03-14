@@ -12,20 +12,36 @@ interface answer {
 
 interface props {
   answer: answer;
+  onPress: () => void;
+  index: number;
+  selectedIndex: number;
 }
 
-const Answer: React.FC<props> = ({answer}) => {
-  const [isCorrect, setIsCorrect] = useState(false);
+const Answer: React.FC<props> = ({
+  answer,
+  onPress,
+  index,
+  selectedIndex,
+}) => {
   return (
-    <TouchableOpacity style={answerCard}>
-      <Text style={regularText}>{answer.optionText}</Text>
-      {isCorrect && (
-        <SvgXml
-          xml={isCorrect ? thumbsUp : thumbsdown}
-          width={20}
-          height={20}
-        />
-      )}
+    <TouchableOpacity style={answerCard} onPress={onPress}>
+      <Text
+        style={[
+          regularText,
+          {
+            color:
+              index === selectedIndex && answer?.isCorrect ? 'green' : 'red',
+          },
+        ]}>
+        {answer.optionText}
+      </Text>
+      <SvgXml
+        xml={
+          index === selectedIndex && answer?.isCorrect ? thumbsUp : thumbsdown
+        }
+        width={20}
+        height={20}
+      />
     </TouchableOpacity>
   );
 };
