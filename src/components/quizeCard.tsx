@@ -21,7 +21,7 @@ const QuizCard: React.FC<Props> = ({onPress, date, title, description, id}) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={quizeCard}>
-        <Text style={[quizeTitle, {padding: 0}]}>Module one quize</Text>
+        <Text style={[quizeTitle, {padding: 0}]}>{title}</Text>
         <SvgXml xml={arrowRight} />
       </View>
     </TouchableOpacity>

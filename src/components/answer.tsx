@@ -7,7 +7,7 @@ import {thumbsUp} from '../assets/svg/ThumbsUp';
 
 interface answer {
   isCorrect: boolean;
-  answer: string;
+  optionText: string;
 }
 
 interface props {
@@ -18,7 +18,7 @@ const Answer: React.FC<props> = ({answer}) => {
   const [isCorrect, setIsCorrect] = useState(false);
   return (
     <TouchableOpacity style={answerCard}>
-      <Text style={regularText}>{answer.answer}</Text>
+      <Text style={regularText}>{answer.optionText}</Text>
       {isCorrect && (
         <SvgXml
           xml={isCorrect ? thumbsUp : thumbsdown}

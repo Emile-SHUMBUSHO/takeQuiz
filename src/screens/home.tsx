@@ -10,39 +10,6 @@ import {RootState} from '../store/types';
 import {apis} from '../store/apis';
 import {UnknownAction} from '@reduxjs/toolkit';
 
-const quizes = [
-  {
-    id: 1,
-    title: 'Module one quiz',
-    descrption: 'This quize will cover all contents of module one',
-    point: '20%',
-  },
-  {
-    id: 2,
-    title: 'Module one quiz',
-    descrption: 'This quize will cover all contents of module one',
-    point: '20%',
-  },
-  {
-    id: 3,
-    title: 'Module one quiz',
-    descrption: 'This quize will cover all contents of module one',
-    point: '20%',
-  },
-  {
-    id: 4,
-    title: 'Module one quiz',
-    descrption: 'This quize will cover all contents of module one',
-    point: '20%',
-  },
-  {
-    id: 5,
-    title: 'Module one quiz',
-    descrption: 'This quize will cover all contents of module one',
-    point: '20%',
-  },
-];
-
 const Home: React.FC<any> = ({navigation}) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [date, setDate] = useState<Date | null | string>('');
@@ -52,8 +19,6 @@ const Home: React.FC<any> = ({navigation}) => {
   const {loading, message, statusCode, payload} = useSelector(
     (state: RootState) => state.quiz,
   );
-
-  console.log(payload);
 
   useEffect(() => {
     dispatch(apis.quiz() as unknown as UnknownAction);
@@ -84,7 +49,7 @@ const Home: React.FC<any> = ({navigation}) => {
         renderItem={({item, index}) => (
           <QuizeCard
             title={item.title}
-            onPress={() => navigation.navigate('Quiz')}
+            onPress={() => navigation.navigate('Quiz',{quizId:item?._id})}
           />
         )}
         ListEmptyComponent={EmptyContent}

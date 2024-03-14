@@ -3,6 +3,7 @@ import {AxiosError} from 'axios';
 import {
   LoginData,
   LoginResponse,
+  QuestionsResponse,
   QuizResponse,
   SignupData,
   SignupResponse,
@@ -74,6 +75,15 @@ class Api {
     try {
       const response = await axios.get(`/quiz`, {});
       return response.data as QuizResponse;
+    } catch (error: AxiosError | any) {
+      return rejectWithValue({error: error?.message});
+    }
+  });
+
+  questionsForAquiz = createAsyncThunk('questions', async (_, {rejectWithValue}) => {
+    try {
+      const response = await axios.get(`/questions?quiz=65f0419a01ea8470e03a3f27`, {});
+      return response.data as QuestionsResponse;
     } catch (error: AxiosError | any) {
       return rejectWithValue({error: error?.message});
     }

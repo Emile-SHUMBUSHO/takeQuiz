@@ -6,6 +6,7 @@ import Answer from './answer';
 
 interface Props {
   onNext: () => void;
+  question: any,
 }
 
 const answers = [
@@ -15,14 +16,13 @@ const answers = [
   {id: 4, answer: 'Integer', isCorrect: false},
 ];
 
-const QuestionOne: React.FC<Props> = ({onNext}) => {
+const QuestionOne: React.FC<Props> = ({onNext, question}) => {
   return (
     <View>
       <Text style={[mainTitle, {alignSelf: 'center', textAlign: 'center'}]}>
-        When an operator’s value is NULL, the typeof returned by the unary
-        operator is:
+        {question?.questionText}
       </Text>
-      {answers.map((answer, index) => (
+      {question?.options?.map((answer:any, index:number) => (
         <Answer answer={answer} key={index} />
       ))}
       <Button onPress={onNext} title="Next" radius={10} />

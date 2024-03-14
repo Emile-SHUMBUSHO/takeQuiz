@@ -51,6 +51,19 @@ interface QuizState {
   payload: any;
 }
 
+interface QuestionsResponse {
+  statusCode: number;
+  message: string;
+  payload: any;
+}
+
+interface QuestionsState {
+  loading: boolean;
+  statusCode: number;
+  message: string;
+  payload: any;
+}
+
 interface TokenState {
   loading: boolean;
   error: string;
