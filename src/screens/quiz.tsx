@@ -103,53 +103,51 @@
 
 // export default Questions;
 
-import React, { useState, useCallback, useEffect, ReactNode } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ActivityIndicator, View } from 'react-native';
-import { RootState, QuetionsScreens } from '../store/types.d';
-import { container } from '../assets/styles';
-import { apis } from '../store/apis';
-import { UnknownAction } from '@reduxjs/toolkit';
+import React, {useState, useCallback, useEffect, ReactNode} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {ActivityIndicator, View} from 'react-native';
+import {RootState, QuetionsScreens} from '../store/types.d';
+import {container} from '../assets/styles';
+import {apis} from '../store/apis';
+import {UnknownAction} from '@reduxjs/toolkit';
 import uiAction from '../store/uiaction';
 import Question from '../components/question';
-import Result from '../components/result';
+import Result from './result';
 
 interface Props {
   route: any;
 }
 
-const Questions: React.FC<Props> = ({ route }) => {
+const Questions: React.FC<Props> = ({route, navigation}) => {
   const dispatch = useDispatch();
-  const { quizId } = route.params;
-  const { currentQuestionScreen } = useSelector((state: RootState) => state.ui);
-  const { loading, statusCode, payload } = useSelector((state: RootState) => state.questions);
-  
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
-  
-  const onNext = useCallback(
-    () => {
-      if (currentQuestionIndex < payload.length - 1) {
-        setCurrentQuestionIndex(prevIndex => prevIndex + 1);
-      } else {
-        dispatch(uiAction.changeQuestionsScreen(QuetionsScreens.RESULT));
-      }
-    },
-    [currentQuestionIndex, dispatch, payload.length],
+  const {quizId} = route.params;
+  const {loading, statusCode, payload} = useSelector(
+    (state: RootState) => state.questions,
   );
 
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
+
+  const onNext = useCallback(() => {
+    if (currentQuestionIndex < payload.length - 1) {
+      setTimeout(()=>{
+        setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+      }, 1000)
+      
+    } else {
+      navigation.navigate("Result");
+    }
+  }, [currentQuestionIndex, navigation, payload.length]);
+
   useEffect(() => {
-    dispatch(apis.questionsForAquiz() as unknown as UnknownAction);
+    dispatch(apis.questionsForAquiz({id: quizId}) as unknown as UnknownAction);
   }, [dispatch]);
 
   const renderScreen = () => {
     if (loading) {
       return <ActivityIndicator size="large" />;
-    } else {
-      if (currentQuestionScreen === QuetionsScreens.RESULT) {
-        return <Result onNext={() => setCurrentQuestionIndex(0)} />;
-      } else {
+    }  else {
         return (
-          <View style={[container, { justifyContent: 'center' }]}>
+          <View style={[container, {justifyContent: 'center'}]}>
             <Question
               question={payload[currentQuestionIndex]}
               onNext={onNext}
@@ -157,11 +155,9 @@ const Questions: React.FC<Props> = ({ route }) => {
           </View>
         );
       }
-    }
   };
 
   return <>{renderScreen()}</>;
 };
 
 export default Questions;
-

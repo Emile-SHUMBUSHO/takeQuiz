@@ -80,9 +80,9 @@ class Api {
     }
   });
 
-  questionsForAquiz = createAsyncThunk('questions', async (_, {rejectWithValue}) => {
+  questionsForAquiz = createAsyncThunk('questions', async (data:{id:string}, {rejectWithValue}) => {
     try {
-      const response = await axios.get(`/questions?quiz=65f0419a01ea8470e03a3f27`, {});
+      const response = await axios.get(`/questions?quiz=${data.id}`, {});
       return response.data as QuestionsResponse;
     } catch (error: AxiosError | any) {
       return rejectWithValue({error: error?.message});

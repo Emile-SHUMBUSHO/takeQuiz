@@ -24,12 +24,12 @@ const Question: React.FC<Props> = ({onNext, question}) => {
           onPress={() => {
             setIsCorrect(answer?.isCorrect);
             setSelectedIndex(index);
+            onNext();
           }}
           index={index}
           selectedIndex={selectedIndex}
         />
       ))}
-      <Button onPress={onNext} title="Next" radius={10} />
     </View>
   );
 };

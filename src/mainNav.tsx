@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from './screens/home';
 import Notification from './screens/notification';
 import Questions from './screens/quiz';
+import Result from './screens/result';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,7 @@ function MainNav(): JSX.Element {
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Notification" component={Notification} />
       <Stack.Screen name="Quiz" component={Questions} />
+      <Stack.Screen name="Result" component={Result}/>
     </Stack.Navigator>
   );
 }
