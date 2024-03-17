@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {Button} from '../components/button';
 import {Input} from '../components/input';
@@ -10,45 +10,73 @@ import {
   mainTitle,
 } from '../assets/styles';
 import {Formik} from 'formik';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '../store/types.d';
+import {apis} from '../store/apis';
+import {UnknownAction} from '@reduxjs/toolkit';
+import Toast from 'react-native-toast-message';
 import signupValidation from '../utils/validation/signup';
 
 const Register: React.FC<any> = ({navigation}) => {
+  const dispatch = useDispatch();
+  const {statusCode, loading, message} = useSelector(
+    (state: RootState) => state.signup,
+  );
+
+  
+  React.useEffect(() => {
+    if (statusCode === 409) {
+      Toast.show({
+        type: 'error',
+        text1: message,
+      });
+      setTimeout(() => {
+        dispatch(apis.resetAll());
+        Toast.hide();
+      }, 3000);
+    }
+    
+    if(statusCode === 201){
+      Toast.show({
+        type: 'success',
+        text1: message,
+      });
+      setTimeout(() => {
+        dispatch(apis.resetAll());
+        Toast.hide();
+        navigation.navigate("Login");
+      }, 3000);
+    }
+  }, [statusCode, message]);
+
   return (
     <View style={authMainContainer}>
       <Text style={mainTitle}>Sign up</Text>
       <Formik
         initialValues={{
-          firstName: '',
-          lastName: '',
+          userName: '',
           email: '',
           password: '',
         }}
         validationSchema={signupValidation}
         onSubmit={(values, {resetForm}) => {
-          navigation.navigate('Setpin', {
-            user: {
-              phoneNumber: values.email,
-              firstName: values.firstName,
-              lastName: values.lastName,
-            },
-          });
+          dispatch(
+            apis.signup({
+              username: values.userName,
+              email: values.email,
+              password: values.password,
+            }) as unknown as UnknownAction,
+          );
           resetForm();
         }}>
         {({handleChange, handleSubmit, errors, handleReset}) => (
           <>
             <Input
-              placeholder="First name"
+              placeholder="User name"
               placeholderTextColor="#BDBDBD"
-              label="Your first name"
-              onChangeText={handleChange('firstName')}
-              error={errors.firstName}
-            />
-            <Input
-              placeholder="Last name"
-              placeholderTextColor="#BDBDBD"
-              label="Your last name"
-              onChangeText={handleChange('lastName')}
-              error={errors.lastName}
+              label="Your user name"
+              onChangeText={handleChange('userName')}
+              error={errors.userName}
             />
             <Input
               placeholder="Email"
@@ -64,14 +92,12 @@ const Register: React.FC<any> = ({navigation}) => {
               onChangeText={handleChange('password')}
               error={errors.password}
             />
-            <Input
-              placeholder="Confirm password"
-              placeholderTextColor="#BDBDBD"
-              label="Your password"
-              onChangeText={handleChange('password')}
-              error={errors.password}
+            <Button
+              title="Register"
+              onPress={handleSubmit}
+              radius={10}
+              loading={loading}
             />
-            <Button title="Register" onPress={handleSubmit} radius={10} />
           </>
         )}
       </Formik>

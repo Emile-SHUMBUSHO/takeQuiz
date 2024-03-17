@@ -14,7 +14,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../store/types';
 import {apis} from '../store/apis';
 import {UnknownAction} from '@reduxjs/toolkit';
-import Toast from 'react-native-toast-message';
 import loginValidation from '../utils/validation/login';
 
 const Login: React.FC<any> = ({navigation}) => {
@@ -22,19 +21,6 @@ const Login: React.FC<any> = ({navigation}) => {
   const {loading, statusCode, message} = useSelector(
     (state: RootState) => state.login,
   );
-
-  React.useEffect(() => {
-    if (statusCode === 401) {
-      Toast.show({
-        type: 'error',
-        text1: message,
-      });
-      setTimeout(() => {
-        dispatch(apis.resetAll());
-        Toast.hide();
-      }, 3000);
-    }
-  }, [statusCode, message]);
 
   return (
     <View style={authMainContainer}>

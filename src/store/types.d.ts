@@ -1,23 +1,21 @@
 import {store} from '.';
+import {Option} from './helper';
 
 interface SignupData {
-  phoneNumber: string;
-  pin: string;
-  firstName: string;
-  lastName: string;
+  username: string;
+  email: string;
+  password: string;
 }
 
 interface SignupResponse {
-  success: boolean;
+  statusCode: number;
   message: string;
-  error: string;
 }
 
 interface SignupState {
   loading: boolean;
-  success: boolean;
+  statusCode: number;
   message: string;
-  error: string;
 }
 
 interface LoginData {
@@ -38,6 +36,24 @@ interface LoginState {
   token: string;
 }
 
+interface CreateQuizData {
+  title: string;
+  instructions: string;
+  id?: string | number;
+}
+
+interface CreateQuestionData {
+  questionText: string;
+  quiz: string | number;
+  options: Option[];
+}
+
+interface QuestionResponse {
+  statusCode: number;
+  message: string;
+  payload: any;
+}
+
 interface QuizResponse {
   statusCode: number;
   message: string;
@@ -51,10 +67,34 @@ interface QuizState {
   payload: any;
 }
 
+interface CreateQuizState {
+  createQuizLoading: boolean;
+  createQuizStatusCode: number;
+  createQuizMessage: string;
+}
+
+interface DeleteQuizState {
+  deleteQuizLoading: boolean;
+  deleteQuizStatusCode: number;
+  deleteQuizMessage: string;
+}
+
+interface UpdateQuizState {
+  updateQuizLoading: boolean;
+  updateQuizStatusCode: number;
+  updateQuizMessage: string;
+}
+
 interface QuestionsResponse {
   statusCode: number;
   message: string;
   payload: any;
+}
+
+interface CreateQuestionState {
+  createQuestionLoading: boolean;
+  createQuestionStatusCode: number;
+  createQuestionMessage: string;
 }
 
 interface QuestionsState {

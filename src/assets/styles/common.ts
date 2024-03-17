@@ -52,7 +52,6 @@ export const header: ViewStyle = {
 };
 
 export const headerTitleContainer: ViewStyle = {
-  width: '80%',
   alignItems: 'center',
   justifyContent: 'center',
 };
@@ -84,3 +83,22 @@ export const regularText: TextStyle = {
   lineHeight: 19.31,
   fontFamily: 'Inter-Regular',
 };
+
+export const flexcontainer: ViewStyle = {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+};
+
+export const mainBorder: ViewStyle = {
+  borderWidth: 1,
+  borderColor: '#C0C0C0',
+  borderRadius: 10,
+  padding:10
+}
+
+export const bouncyCheckboxTextStyle: TextStyle = {
+  textDecorationLine:"none",
+  color:"#262626",
+  fontSize:12
+}

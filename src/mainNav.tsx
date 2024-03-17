@@ -4,6 +4,7 @@ import Home from './screens/home';
 import Notification from './screens/notification';
 import Questions from './screens/quiz';
 import Result from './screens/result';
+import ManageQuiz from './screens/manageQuiz';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,7 @@ function MainNav(): JSX.Element {
       <Stack.Screen name="Notification" component={Notification} />
       <Stack.Screen name="Quiz" component={Questions} />
       <Stack.Screen name="Result" component={Result}/>
+      <Stack.Screen name="ManageQuiz" component={ManageQuiz}/>
     </Stack.Navigator>
   );
 }

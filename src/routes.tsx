@@ -24,7 +24,7 @@ function Routes(): JSX.Element {
 
   React.useEffect(() => {
     dispatch(apis.authInit() as unknown as UnknownAction);
-  }, [statusCode, dispatch]);
+  }, [statusCode, dispatch, token]);
 
   return (
     <Host>
@@ -42,6 +42,7 @@ function Routes(): JSX.Element {
               screenOptions={{
                 headerShown: false,
               }}
+              defaultStatus='closed'
               drawerContent={props => <UserProfile {...props} />}>
               <Drawer.Screen name="home" component={MainNav} />
             </Drawer.Navigator>

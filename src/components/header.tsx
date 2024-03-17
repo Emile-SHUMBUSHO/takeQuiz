@@ -1,8 +1,11 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import { Text, TouchableOpacity} from 'react-native';
 import {SvgXml} from 'react-native-svg';
 import {arrowLeft} from '../assets/svg/arrow-left';
-import {header, headerTitle, headerTitleContainer} from '../assets/styles';
+import {
+  header,
+  regularText,
+} from '../assets/styles';
 
 interface Props {
   onPress?: () => void;
@@ -11,14 +14,10 @@ interface Props {
 
 const Header: React.FC<Props> = ({onPress, title}) => {
   return (
-    <View style={header}>
-      <TouchableOpacity onPress={onPress} style={{width: '10%'}}>
-        <SvgXml xml={arrowLeft} />
-      </TouchableOpacity>
-      <View style={headerTitleContainer}>
-        <Text style={headerTitle}>{title}</Text>
-      </View>
-    </View>
+    <TouchableOpacity style={header} onPress={onPress}>
+      <SvgXml xml={arrowLeft} />
+      <Text style={regularText}>{title}</Text>
+    </TouchableOpacity>
   );
 };
 
