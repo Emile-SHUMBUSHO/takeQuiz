@@ -27,6 +27,11 @@ const createQuestionSlice = createSlice({
       state.createQuestionMessage = action?.payload?.error;
       state.createQuestionStatusCode = action?.payload?.statusCode;
     });
+
+    builder.addCase(apis.resetAll, (state)=>{
+      state.createQuestionMessage = '';
+      state.createQuestionStatusCode = 0;
+    })
   },
 });
 

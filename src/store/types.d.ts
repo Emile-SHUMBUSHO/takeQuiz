@@ -24,9 +24,9 @@ interface LoginData {
 }
 
 interface LoginResponse {
-  statusCode: number;
-  message: string;
-  token: string;
+  statusCode?: number;
+  message?: string;
+  token?: string;
 }
 
 interface LoginState {
@@ -34,6 +34,7 @@ interface LoginState {
   statusCode: number;
   message: string;
   token: string;
+  error: boolean;
 }
 
 interface CreateQuizData {

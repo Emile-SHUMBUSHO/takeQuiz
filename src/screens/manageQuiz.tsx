@@ -24,6 +24,7 @@ import EmptyContent from '../components/emptyContent';
 import HomeHeader from '../components/homeHeader';
 import ManageQuizCard from '../components/manageQuizCard';
 import Modal from '../components/modal';
+import Toast from 'react-native-toast-message';
 
 const ManageQuiz: React.FC<any> = ({navigation}) => {
   const dispatch = useDispatch();
@@ -84,12 +85,16 @@ const ManageQuiz: React.FC<any> = ({navigation}) => {
   const {loading, message, statusCode, payload} = useSelector(
     (state: RootState) => state.quiz,
   );
+
   const {createQuizLoading, createQuizMessage, createQuizStatusCode} =
     useSelector((state: RootState) => state.createQuiz);
+
   const {deleteQuizLoading, deleteQuizMessage, deleteQuizStatusCode} =
     useSelector((state: RootState) => state.deleteQuiz);
+
   const {updateQuizStatusCode, updateQuizLoading, updateQuizMessage} =
     useSelector((state: RootState) => state.updateQuiz);
+
   const {
     createQuestionLoading,
     createQuestionMessage,
@@ -144,6 +149,112 @@ const ManageQuiz: React.FC<any> = ({navigation}) => {
     setQuizId(id);
     openEditQuizModal();
   };
+
+  React.useEffect(() => {
+    if (createQuizStatusCode !== 201 && createQuizStatusCode !== 0) {
+      Toast.show({
+        type: 'error',
+        text1: createQuizMessage,
+      });
+
+      setTimeout(() => {
+        dispatch(apis.resetAll());
+        Toast.hide();
+      }, 3000);
+    }
+
+    if (createQuizStatusCode === 201) {
+      Toast.show({
+        type: 'success',
+        text1: createQuizMessage,
+      });
+      setTimeout(() => {
+        dispatch(apis.resetAll());
+        closecreateQuizModal();
+        Toast.hide();
+      }, 3000);
+    }
+  }, [createQuizStatusCode, createQuizMessage]);
+
+  React.useEffect(() => {
+    if (createQuestionStatusCode !== 201 && createQuestionStatusCode !== 0) {
+      Toast.show({
+        type: 'error',
+        text1: createQuestionMessage,
+      });
+      
+      setTimeout(() => {
+        dispatch(apis.resetAll());
+        Toast.hide();
+      }, 3000);
+    }
+
+    if (createQuestionStatusCode === 201) {
+      Toast.show({
+        type: 'success',
+        text1: createQuestionMessage,
+      });
+      setTimeout(() => {
+        dispatch(apis.resetAll());
+        closeAddQuizQuestionModal();
+        Toast.hide();
+      }, 3000);
+    }
+  }, [createQuestionStatusCode, createQuestionMessage]);
+
+  React.useEffect(() => {
+    if (updateQuizStatusCode !== 200 && updateQuizStatusCode !== 0) {
+      Toast.show({
+        type: 'error',
+        text1: updateQuizMessage,
+      });
+      
+      setTimeout(() => {
+        dispatch(apis.resetAll());
+        Toast.hide();
+      }, 3000);
+    }
+
+    if (updateQuizStatusCode === 200) {
+      Toast.show({
+        type: 'success',
+        text1: updateQuizMessage,
+      });
+      setTimeout(() => {
+        dispatch(apis.resetAll());
+        closeEditQuizModal();
+        Toast.hide();
+      }, 3000);
+    }
+  }, [updateQuizStatusCode, updateQuizMessage]);
+
+
+  React.useEffect(() => {
+    if (deleteQuizStatusCode !== 200 && deleteQuizStatusCode !== 0) {
+      Toast.show({
+        type: 'error',
+        text1: deleteQuizMessage,
+      });
+      
+      setTimeout(() => {
+        dispatch(apis.resetAll());
+        Toast.hide();
+      }, 3000);
+    }
+
+    if (deleteQuizStatusCode === 200) {
+      Toast.show({
+        type: 'success',
+        text1: deleteQuizMessage,
+      });
+      setTimeout(() => {
+        dispatch(apis.resetAll());
+        closeAddQuizQuestionModal();
+        Toast.hide();
+      }, 3000);
+    }
+  }, [deleteQuizStatusCode, deleteQuizMessage]);
+
 
   return (
     <View style={[container, {padding: 0}]}>

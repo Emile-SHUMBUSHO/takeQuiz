@@ -30,6 +30,10 @@ const updateQuizSlice = createSlice({
         state.updateQuizStatusCode = action?.payload?.statusCode;
       },
     );
+    builder.addCase(apis.resetAll, (state)=>{
+      state.updateQuizMessage = '';
+      state.updateQuizStatusCode = 0;
+    })
   },
 });
 

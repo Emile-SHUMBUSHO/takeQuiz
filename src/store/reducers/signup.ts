@@ -30,6 +30,11 @@ const signupSlice = createSlice({
         state.message = action?.payload?.message;
       }
     );
+
+    builder.addCase(apis.resetAll, (state)=>{
+      state.message = '';
+      state.statusCode = 0;
+    })
   },
 });
 

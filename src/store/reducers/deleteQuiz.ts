@@ -27,6 +27,11 @@ const deleteQuizSlice = createSlice({
       state.deleteQuizMessage = action?.payload?.error;
       state.deleteQuizStatusCode = action?.payload?.statusCode;
     });
+
+    builder.addCase(apis.resetAll, (state)=>{
+      state.deleteQuizStatusCode = 0;
+      state.deleteQuizMessage= '';
+    })
   },
 });
 

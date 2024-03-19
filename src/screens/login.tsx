@@ -15,12 +15,26 @@ import {RootState} from '../store/types';
 import {apis} from '../store/apis';
 import {UnknownAction} from '@reduxjs/toolkit';
 import loginValidation from '../utils/validation/login';
+import Toast from 'react-native-toast-message';
 
 const Login: React.FC<any> = ({navigation}) => {
   const dispatch = useDispatch();
-  const {loading, statusCode, message} = useSelector(
+  const {loading, statusCode, message, error} = useSelector(
     (state: RootState) => state.login,
   );
+
+  React.useEffect(() => {
+    if (error) {
+      Toast.show({
+        type: 'error',
+        text1: message,
+      });
+      setTimeout(() => {
+        dispatch(apis.resetAll());
+        Toast.hide();
+      }, 3000);
+    }
+  }, [statusCode, message]);
 
   return (
     <View style={authMainContainer}>

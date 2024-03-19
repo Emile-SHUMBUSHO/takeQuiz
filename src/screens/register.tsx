@@ -25,7 +25,7 @@ const Register: React.FC<any> = ({navigation}) => {
 
   
   React.useEffect(() => {
-    if (statusCode === 409) {
+    if (statusCode !== 201 && statusCode !== 0) {
       Toast.show({
         type: 'error',
         text1: message,

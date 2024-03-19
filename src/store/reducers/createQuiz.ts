@@ -22,11 +22,17 @@ const createQuizSlice = createSlice({
         state.createQuizMessage = action?.payload?.message;
       },
     );
+    
     builder.addCase(apis.createQuiz.rejected, (state, action: PayloadAction<any>) => {
       state.createQuizLoading = false;
       state.createQuizMessage = action?.payload?.error;
       state.createQuizStatusCode = action?.payload?.statusCode;
     });
+
+    builder.addCase(apis.resetAll, (state)=>{
+      state.createQuizMessage = '';
+      state.createQuizStatusCode = 0;
+    })
   },
 });
 

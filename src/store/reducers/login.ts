@@ -10,6 +10,7 @@ const loginSlice = createSlice({
     statusCode: 0,
     message: '',
     token: '',
+    error: false,
   } as LoginState,
   reducers: {},
   extraReducers: builder => {
@@ -31,6 +32,7 @@ const loginSlice = createSlice({
         state.loading = false;
         state.message = action?.payload?.error;
         state.statusCode = action?.payload?.statusCode;
+        state.error = true;
       },
     );
     builder.addCase(
@@ -39,6 +41,12 @@ const loginSlice = createSlice({
         state.token = action?.payload;
       },
     );
+
+    builder.addCase(apis.resetAll, (state)=>{
+      state.statusCode = 0;
+      state.message= '';
+      state.error = false
+    })
   },
 });
 

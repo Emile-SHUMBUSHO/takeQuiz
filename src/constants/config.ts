@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
 
-export const apiLink = 'http://10.0.2.2:3000/api/v1';
+export const apiLink = 'https://quiz-app-api-uzxt.onrender.com/api/v1';
 
 type IAsyncStorage = {
   key: string;
@@ -20,7 +20,6 @@ export const storeData = async ({key, value}: IAsyncStorage) => {
 
 export const useLocalStorage = (key: string) => {
   const [value, setValue] = useState<any>(null);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
